@@ -4,6 +4,7 @@
 #include <map>
 #include <cmath>
 #include <algorithm>
+#include <sstream>
 
 #include "../../bmExpansion.h"
 
@@ -38,7 +39,7 @@ int main(int argc, char** argv) {
   infile.close();
 
   if(argc > 1) {
-    cout << "rwHwPbfl jahr fraktion species Nrepjeha bmLeaf bmBranch bmStem bmCorseRoot bmFineRoot bmStump bmSeed" << endl;
+    cout << "#rwHwPbfl jahr fraktion tot JAb species Nrepjeha BHD bmLeaf bmBranch bmStem bmCorseRoot bmFineRoot bmStump bmSeed" << endl;
 
     infile.open(argv[1], ios::in);
     while(getline(infile, line)) {
@@ -86,8 +87,11 @@ int main(int argc, char** argv) {
  	cout << rwHwPbfl
 	     << " " << jahr
 	     << " " << fraktion
+	     << " " << tot
+	     << " " << JAb
 	     << " " << species
 	     << " " << Nrepjeha
+	     << " " << BHD
 	     << " " << bmLeaf
 	     << " " << bmBranch
 	     << " " << bmStem

@@ -11,3 +11,8 @@ for ((i = 0; i < ${#szenNames[*]}; i++)); do
     echo "${szenNames[$i]}"
     ./2calcBm /tmp2/${szenNames[$i]}.txt >/tmp2/${szenNames[$i]}Bm.txt
 done
+
+
+./2calcBm /tmp2/cv45Ref.txt |./3calcInfall |less
+
+
