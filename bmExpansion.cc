@@ -35,6 +35,7 @@ namespace {
       if(h>0.) {cr = (h - hKa) / h;}
       ret = exp(c[0] + c[1] * log(d) + c[2] * log(h) + c[3] * log(cr)
 		+ c[4] * h/d + c[5] * (1.-cr));
+      if(!std::isfinite(ret)) {ret = 0.;}
     }
     return(ret);
   }
@@ -128,6 +129,9 @@ namespace bmExp {
 	  if(item.size() > 0 && item[0] == '#') {break;} //Skip comments
 	  if(n==0) {species = item;
 	  } else if(n==6) {bm.raumdichte[species] = std::atof(item.c_str());
+	  } else if(n==7) {bm.stem2corseroot[species] = std::atof(item.c_str());
+	  } else if(n==8) {bm.leaf2fineroot[species] = std::atof(item.c_str());
+	  } else if(n==9) {bm.leaf2seed[species] = std::atof(item.c_str());
 	  } else {coefNames.push_back(item);}
 	  ++n;
 	}

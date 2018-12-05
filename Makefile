@@ -1,5 +1,5 @@
 cc = g++
-OP = -O2 -march=native
+OP = -O3 -march=native
 WR = -Wall -Wextra
 ST = -std=c++17 
 

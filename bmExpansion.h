@@ -27,6 +27,9 @@ namespace bmExp {
     void i(const std::string &species
 	   , const std::vector<std::string> &coefNames);
     std::map<std::string, double> raumdichte;
+    std::map<std::string, double> stem2corseroot;
+    std::map<std::string, double> leaf2fineroot;
+    std::map<std::string, double> leaf2seed;
   private:
     struct bm {
       double dmin;

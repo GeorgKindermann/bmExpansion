@@ -36,7 +36,7 @@ Populus alba,PoAl,24.2
 Populus nigra,PoNi,25
 Populus,PopX,26
 Salix,SalX,27
-Broadleaved,BroX,
+Broadleaved,BroX,28
 Broadleaved Hardbwood,BrHX,31
 Juglans regia,JuRe,31.1
 Juglans nigra,JuNi,31.2
@@ -46,3 +46,4 @@ Pyrus,PyrX,31.4
 Broadleaved Softwood,BrSX,32
 Bushes,BusX,
 Alnus viridis,AlVi,33
+Populus,PopX,24

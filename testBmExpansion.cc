@@ -22,8 +22,9 @@ int main() {
   cout << "Leaf biomass: " << bmexp.g(bmExp::compartment::leaf, species, dbh, h, hKa) << " kg" << endl;
   cout << "Branch biomass: " << bmexp.g(bmExp::compartment::branch, species, dbh, h, hKa) << " kg" << endl;
   cout << "Stem biomass: " << bmexp.g(bmExp::compartment::stem, species, dbh, h, hKa)*bmexp.raumdichte[species] << " kg" << endl;
-  cout << "Corse root biomass: " << 0.2 * bmexp.g(bmExp::compartment::stem, species, dbh, h, hKa)*bmexp.raumdichte[species] << " kg" << endl; //Corseroot=0.2Stem
-  cout << "Fine root biomass: " << 1. * bmexp.g(bmExp::compartment::leaf, species, dbh, h, hKa) << " kg" << endl; //Fineroot == Leave
+  cout << "Corse root biomass: " << bmexp.stem2corseroot[species] * bmexp.g(bmExp::compartment::stem, species, dbh, h, hKa)*bmexp.raumdichte[species] << " kg" << endl; //Corseroot=x*Stem
+  cout << "Fine root biomass: " << bmexp.leaf2fineroot[species] * bmexp.g(bmExp::compartment::leaf, species, dbh, h, hKa) << " kg" << endl; //Fineroot == x*Leaf
+  cout << "Seed root biomass: " << bmexp.leaf2seed[species] * bmexp.g(bmExp::compartment::leaf, species, dbh, h, hKa) << " kg" << endl; //Seed == x*Leaf
   
   return(0);
 }
