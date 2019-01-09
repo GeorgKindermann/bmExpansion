@@ -90,18 +90,20 @@ int main() {
   double bmFineRoot;
   double bmStump;
   double bmSeed;
-  cout << "rwHwPbfl jahr species BHD cLeaf cBranch cStem cCoarseRoot cFineRoot cSeed cStump\n";
+  cout << "#rwHwPbfl jahr species BHD litter cLeaf cBranch cStem cCoarseRoot cFineRoot cSeed cStump\n";
   while(cin >>  rwHwPbfl >> jahr >> fraktion >> tot >> JAb >> species >> Nrepjeha >> BHD >> bmLeaf >> bmBranch >> bmStem >> bmCoarseRoot >> bmFineRoot >> bmStump >> bmSeed) {
     compartments infall {0.,0.,0.,0.,0.,0.,0.};
+    bool litter = false;
     if(fraktion == "Verb") {
       if(!tot) {
-	infall.leaf = trunoverRates[species].leaf * bm2c[species].leaf;
-	infall.branch = trunoverRates[species].branch * bm2c[species].branch;
-	infall.stem = trunoverRates[species].stem * bm2c[species].stem;
-	infall.coarseRoot = trunoverRates[species].coarseRoot * bm2c[species].coarseRoot;
-	infall.fineRoot = trunoverRates[species].fineRoot * bm2c[species].fineRoot;
-	infall.seed = trunoverRates[species].seed * bm2c[species].seed;
-	infall.stump = trunoverRates[species].stump * bm2c[species].stump;
+	litter = true;
+	infall.leaf = trunoverRates[species].leaf;
+	infall.branch = trunoverRates[species].branch;
+	infall.stem = trunoverRates[species].stem;
+	infall.coarseRoot = trunoverRates[species].coarseRoot;
+	infall.fineRoot = trunoverRates[species].fineRoot;
+	infall.seed = trunoverRates[species].seed;
+	infall.stump = trunoverRates[species].stump;
       } else if(JAb == jahr) {
 	infall.leaf = 1.;
 	infall.branch = 1.;
@@ -111,6 +113,7 @@ int main() {
       }
     } else if(fraktion == "NatAbgang") {
       infall.stem = 1.;
+      infall.stump = 1.;
       if(!tot) {
 	infall.leaf = 1.;
 	infall.branch = 1.;
@@ -131,13 +134,14 @@ int main() {
     }
     if(infall.leaf>0. || infall.branch>0. || infall.stem>0. || infall.coarseRoot>0. || infall.fineRoot>0. || infall.seed>0. || infall.stump>0.) {
       cout << rwHwPbfl << " " << jahr << " " << species << " " << BHD
-	   << " " << Nrepjeha / 1000. * bmLeaf * infall.leaf
-	   << " " << Nrepjeha / 1000. * bmBranch * infall.branch
-	   << " " << Nrepjeha / 1000. * bmStem * infall.stem
-	   << " " << Nrepjeha / 1000. * bmCoarseRoot * infall.coarseRoot
-	   << " " << Nrepjeha / 1000. * bmFineRoot * infall.fineRoot
-	   << " " << Nrepjeha / 1000. * bmSeed * infall.seed
-	   << " " << Nrepjeha / 1000. * bmStump * infall.stump
+	   << " " << litter
+	   << " " << Nrepjeha / 1000. * bmLeaf * bm2c[species].leaf * infall.leaf
+	   << " " << Nrepjeha / 1000. * bmBranch * bm2c[species].branch * infall.branch
+	   << " " << Nrepjeha / 1000. * bmStem * bm2c[species].stem * infall.stem
+	   << " " << Nrepjeha / 1000. * bmCoarseRoot * bm2c[species].coarseRoot * infall.coarseRoot
+	   << " " << Nrepjeha / 1000. * bmFineRoot * bm2c[species].fineRoot * infall.fineRoot
+	   << " " << Nrepjeha / 1000. * bmSeed * bm2c[species].seed * infall.seed
+	   << " " << Nrepjeha / 1000. * bmStump * bm2c[species].stump * infall.stump
 	   << "\n";
     }
   }

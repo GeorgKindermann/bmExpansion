@@ -11,11 +11,20 @@
 using namespace std;
 
 namespace {
-  void print(string &rwHwPbfl, int &jahr, const string &sz, valarray<double> x) {
-    x = x.apply([](double y)->double {return(round(y*10000.)/10000.);});
-    if(x.sum() > 0.) {cout << rwHwPbfl << " " << jahr << " " << sz;
-      for_each(begin(x), end(x), [](const double& y) {cout << " " << y;});
+  void print(const string &rwHwPbfl, const int &jahr, const map<pair<bool, double>, valarray<double> > &z) {
+    for(auto const& [key, val] : z) {
+  cout << rwHwPbfl << " " << jahr << " " << key.first  << " " << key.second;
+      for_each(begin(val), end(val), [](const double& y) {cout << " " << y;});
       cout << "\n";
+    }
+  }
+
+  void add(const pair<bool, double> key, map<pair<bool, double>, valarray<double> > &vmap, const valarray<double> &infall) {
+    auto search = vmap.find(key);
+    if (search != vmap.end()) {
+      search->second += infall;      
+    } else {
+      vmap[key] = infall;
     }
   }
 }
@@ -56,6 +65,7 @@ int main() {
   int jahr;
   string species;
   double BHD;
+  bool litter;
   double cLeaf;
   double cBranch;
   double cStem;
@@ -63,37 +73,30 @@ int main() {
   double cFineRoot;
   double cSeed;
   double cStump;
-  valarray<double> infall0(4);
-  valarray<double> infall2(4);
-  valarray<double> infall20(4);
-  cout << "#rwHwPbfl year size a w e n\n";
-  while(cin >> rwHwPbfl >> jahr >> species >> BHD >> cLeaf >> cBranch >> cStem >> cCoarseRoot >> cFineRoot >> cSeed >> cStump) {
+  map<pair<bool, double>, valarray<double> > infall;
+  cout << "#rwHwPbfl year litter size a w e n\n";
+  while(cin >> rwHwPbfl >> jahr >> species >> BHD >> litter >> cLeaf >> cBranch >> cStem >> cCoarseRoot >> cFineRoot >> cSeed >> cStump) {
     if(jahrL != jahr || rwHwPbflL != rwHwPbfl) {
-      print(rwHwPbflL, jahrL, "0", infall0);
-      print(rwHwPbflL, jahrL, "2", infall2);
-      print(rwHwPbflL, jahrL, "20", infall20);
-      infall0 = 0.;
-      infall2 = 0.;
-      infall20 = 0.;
+      if(jahrL > -99999) {
+	print(rwHwPbflL, jahrL, infall);
+      }
+      infall.clear();
       jahrL = jahr;
       rwHwPbflL = rwHwPbfl;
     }
     valarray<double> chem = chemicalComposition[make_pair("leaf", species)];
-    infall0 += (cLeaf + cSeed) * chem;
+    add(make_pair(litter, 0.), infall, (cLeaf + cSeed) * chem);
     chem = chemicalComposition[make_pair("branch", species)];
-    infall2 += cBranch * chem;
+    add(make_pair(litter, 2.), infall,  cBranch * chem);
     chem = chemicalComposition[make_pair("stem", species)];
     if(BHD > 10.) {
-      infall20 += (cStem + cCoarseRoot + cStump) * chem;
+      add(make_pair(litter, 20.), infall, (cStem + cCoarseRoot + cStump)*chem);
     } else {
-      infall2 += (cStem + cCoarseRoot + cStump) * chem;
+      add(make_pair(litter, 2.), infall, (cStem + cCoarseRoot + cStump)*chem);
     }
     chem = chemicalComposition[make_pair("fineRoot", species)];
-    infall0 += cFineRoot * chem;
+    add(make_pair(litter, 0.), infall, cFineRoot * chem);
   }
-  print(rwHwPbflL, jahrL, "0", infall0);
-  print(rwHwPbflL, jahrL, "2", infall2);
-  print(rwHwPbflL, jahrL, "20", infall20);
-  
+  print(rwHwPbflL, jahrL, infall);
   return(0);
 }

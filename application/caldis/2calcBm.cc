@@ -84,6 +84,8 @@ int main(int argc, char** argv) {
 	double bmFineRoot = bmexp.leaf2fineroot[species] * bmLeaf;
 	double bmSeed = bmexp.leaf2seed[species] * bmLeaf;
 	double bmStump = rDens * pow((BHD+min(1.3,HT))/200., 2) * M_PI * min(0.3, 0.5 * HT);
+	if(bmStump > bmStem) {bmStump = bmStem;}
+	bmStem -= bmStump;
  	cout << rwHwPbfl
 	     << " " << jahr
 	     << " " << fraktion

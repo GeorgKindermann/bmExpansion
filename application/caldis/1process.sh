@@ -9,6 +9,20 @@ done
 
 for ((i = 0; i < ${#szenNames[*]}; i++)); do
     echo "${szenNames[$i]}"
-    ./2calcBm /tmp2/${szenNames[$i]}.txt |./3calcInfall |./4infall2chemComp >/tmp2/${szenNames[$i]}IYas.txt
+    ./2calcBm /tmp2/${szenNames[$i]}.txt |./3calcInfall |./4infall2chemComp |./5threshold >/tmp2/${szenNames[$i]}IYas.txt
 done
+
+#With treshold=10t/ha/year and smoothing=15Years
+szenNames=(cv45Ref cv85Ref cv85BaWechsel cv85Katastrophe)
+for ((i = 0; i < ${#szenNames[*]}; i++)); do
+    echo "${szenNames[$i]}"
+    ./2calcBm /tmp2/${szenNames[$i]}.txt |./3calcInfall |./4infall2chemComp |./5threshold 10 15 2010 2150 >/tmp2/${szenNames[$i]}IYasT.txt
+done
+./2calcBm /tmp2/cvSpinnup.txt |./3calcInfall |./4infall2chemComp |./5threshold 10 15 2010 >/tmp2/cvSpinnupIYasT.txt
+
+for ((i = 0; i < ${#szenNames[*]}; i++)); do
+    echo "${szenNames[$i]}"
+    ./t1calcStock /tmp2/${szenNames[$i]}.txt >/tmp2/${szenNames[$i]}GV.txt
+done
+./t1calcStock /tmp2/cvSpinnup.txt >/tmp2/cvSpinnupGV.txt
 
