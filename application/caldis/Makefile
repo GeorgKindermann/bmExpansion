@@ -3,7 +3,10 @@ OP = -O3 -march=native
 WR = -Wall -Wextra
 ST = -std=c++17 
 
-all: 2calcBm 3calcInfall 4infall2chemComp  5threshold t1calcStock
+all: 1_5sdiMax 2calcBm 3calcInfall 4infall2chemComp 5threshold t1calcStock
+
+1_5sdiMax: 1_5sdiMax.cc
+	$(CC) $(OP) $(WR) $(ST) -lm -lstdc++ 1_5sdiMax.cc -o1_5sdiMax
 
 2calcBm: 2calcBm.cc ../../bmExpansion.o
 	$(CC) $(OP) $(WR) $(ST) -lm -lstdc++ ../../bmExpansion.o 2calcBm.cc -o2calcBm
