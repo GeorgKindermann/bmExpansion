@@ -15,7 +15,7 @@ namespace {
     for(auto const& [key, val] : z) {
   cout << rwHwPbfl << " " << jahr << " " << key.first  << " " << key.second;
       for_each(begin(val), end(val), [](const double& y) {cout << " " << y;});
-      cout << "\n";
+      cout << endl;
     }
   }
 

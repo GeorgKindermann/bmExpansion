@@ -37,7 +37,7 @@ int main() {
   }
   infile.close();
 
-  cout << "#rwHwPbfl jahr fraktion tot JAb species Nrepjeha BHD bmLeaf bmBranch bmStem bmCorseRoot bmFineRoot bmStump bmSeed" << endl;
+  cout << "#rwHwPbfl jahr fraktion tot JAb species Nrepjeha BHD bmLeaf bmBranch bmStem bmCorseRoot bmFineRoot bmStump bmSeed Nred" << endl;
 
   while(getline(cin, line)) {
     if(line.size() > 0 && line[0] != '#') { //Skip comment lines
@@ -54,7 +54,8 @@ int main() {
       int tot;
       double BaumVol;
       int JAb;
-      linestream >> rwHwPbfl >> jahr >> BaumNr >> fraktion >> BaumArt >> BHD >> HT >> KA >> Nrepjeha >> tot >> BaumVol >> JAb;
+      double nRed;
+      linestream >> rwHwPbfl >> jahr >> BaumNr >> fraktion >> BaumArt >> BHD >> HT >> KA >> Nrepjeha >> tot >> BaumVol >> JAb >> nRed;
       if(BaumVol < 0.) {BaumVol = 0.;}
       if(KA < 0.) {KA = .5 * HT;}
       string species = "PiAb";
@@ -98,7 +99,8 @@ int main() {
 	   << " " << bmFineRoot
 	   << " " << bmStump
 	   << " " << bmSeed
-	   << "\n";
+	   << " " << nRed
+	   << endl;
     }
   }
   

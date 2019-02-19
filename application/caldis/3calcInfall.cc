@@ -40,7 +40,7 @@ int main() {
 	case 4 : tmp.coarseRoot = std::atof(item.c_str()); break;
 	case 5 : tmp.fineRoot = std::atof(item.c_str()); break;
 	case 6 : tmp.seed = std::atof(item.c_str()); break;
-	case 7 : tmp.stump = 0;
+	case 7 : tmp.stump = 0.;
 	}
 	++n;
       }
@@ -90,8 +90,9 @@ int main() {
   double bmFineRoot;
   double bmStump;
   double bmSeed;
+  double nRed;
   cout << "#rwHwPbfl jahr species BHD litter cLeaf cBranch cStem cCoarseRoot cFineRoot cSeed cStump\n";
-  while(cin >>  rwHwPbfl >> jahr >> fraktion >> tot >> JAb >> species >> Nrepjeha >> BHD >> bmLeaf >> bmBranch >> bmStem >> bmCoarseRoot >> bmFineRoot >> bmStump >> bmSeed) {
+  while(cin >>  rwHwPbfl >> jahr >> fraktion >> tot >> JAb >> species >> Nrepjeha >> BHD >> bmLeaf >> bmBranch >> bmStem >> bmCoarseRoot >> bmFineRoot >> bmStump >> bmSeed >> nRed) {
     compartments infall {0.,0.,0.,0.,0.,0.,0.};
     bool litter = false;
     if(fraktion == "Verb") {
@@ -135,14 +136,14 @@ int main() {
     if(infall.leaf>0. || infall.branch>0. || infall.stem>0. || infall.coarseRoot>0. || infall.fineRoot>0. || infall.seed>0. || infall.stump>0.) {
       cout << rwHwPbfl << " " << jahr << " " << species << " " << BHD
 	   << " " << litter
-	   << " " << Nrepjeha / 1000. * bmLeaf * bm2c[species].leaf * infall.leaf
-	   << " " << Nrepjeha / 1000. * bmBranch * bm2c[species].branch * infall.branch
+	   << " " << nRed / 1000. * bmLeaf * bm2c[species].leaf * infall.leaf
+	   << " " << nRed / 1000. * bmBranch * bm2c[species].branch * infall.branch
 	   << " " << Nrepjeha / 1000. * bmStem * bm2c[species].stem * infall.stem
 	   << " " << Nrepjeha / 1000. * bmCoarseRoot * bm2c[species].coarseRoot * infall.coarseRoot
-	   << " " << Nrepjeha / 1000. * bmFineRoot * bm2c[species].fineRoot * infall.fineRoot
-	   << " " << Nrepjeha / 1000. * bmSeed * bm2c[species].seed * infall.seed
+	   << " " << nRed / 1000. * bmFineRoot * bm2c[species].fineRoot * infall.fineRoot
+	   << " " << nRed / 1000. * bmSeed * bm2c[species].seed * infall.seed
 	   << " " << Nrepjeha / 1000. * bmStump * bm2c[species].stump * infall.stump
-	   << "\n";
+	   << endl;
     }
   }
     

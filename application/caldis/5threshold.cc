@@ -36,7 +36,7 @@ namespace {
 	     << " " << size
 	     << " " << year;
 	for(int i=0; i<4; ++i) {cout << " " << infall[i];}
-	cout << "\n";
+	cout << endl;
       }
     }
   }
